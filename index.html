@@ -5,9 +5,35 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paper Piano</title>
+
+    <!-- Preconnect to optimize font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts: Special Elite for a typewriter/paper aesthetic -->
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+
+    <!-- Link your main CSS file -->
+    <link rel="stylesheet" href="/src/index.css" />
   </head>
   <body>
-    <div id="root"></div>
+    <header>
+      <h1>Paper Piano</h1>
+    </header>
+    
+    <main>
+      <section id="hero">
+        <h2>Welcome to Paper Piano</h2>
+        <p>Experience a modern, interactive interface that brings creativity to your fingertips.</p>
+        <button>Get Started</button>
+      </section>
+    </main>
+    
+    <footer>
+      <p>&copy; 2025 Paper Piano. All rights reserved.</p>
+    </footer>
+    
+    <!-- Your main JavaScript entry point -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

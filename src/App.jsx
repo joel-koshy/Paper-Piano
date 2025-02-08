@@ -9,6 +9,7 @@ function App() {
   return (
     <>
       <h1>Paper Piano!!</h1>
+      <button>Start</button>
     </>
   )
 }
