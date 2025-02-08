@@ -9,11 +9,7 @@ function App() {
   return (
     <>
       <h1>Paper Piano!!</h1>
-<<<<<<< HEAD
-      <button>Start</button>
-=======
       <Model/>
->>>>>>> a6b4b6a46737364d7266ca47fa59e3a8153b99a8
     </>
   )
 }
