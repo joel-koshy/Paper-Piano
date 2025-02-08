@@ -4,12 +4,23 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Model from './HandLandMarker.jsx'
 
+
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [cameraIsVisible, setVisibility] = useState(false)
+
+  function handleCameraVisibility() {
+    setVisibility(!cameraIsVisible)
+  }
+
   return (
     <>
-      <h1>Paper Piano!!</h1>
-      <Model/>
+      <section id="hero">
+        <h2>Welcome to Paper Piano</h2>
+        <p>Experience a modern, interactive interface that brings creativity to your fingertips.</p>
+        <button onClick={handleCameraVisibility}>Get Started</button>
+      </section>
+      {cameraIsVisible && <Model/>}
     </>
   )
 }

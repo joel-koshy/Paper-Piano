@@ -20,7 +20,8 @@ const Model = () => {
                     vision, {
                         baseOptions: { modelAssetPath: hand_landmarker_task },
                         numHands: 2,
-                        runningMode: "video"
+                        runningMode: "video", 
+                        modelComplexity: "0"    
                     }
                 );
                 detectHands();
@@ -90,7 +91,7 @@ const Model = () => {
     return (
         <>
         <h1>Is there a Hand? {handPresence ? "Yes" : "No"}</h1>
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative", width: "fit-content" }}>
             <video ref={videoRef} autoPlay playsInline ></video>
             <canvas ref={canvasRef} style={{position: "absolute", top: "0", left: "0"}}></canvas>
             
