@@ -32,9 +32,13 @@ const Model = () => {
     const drawLandmarks = (landmarksArray) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
+    if (videoRef.current) {
+                canvas.width = videoRef.current.videoWidth;
+                canvas.height = videoRef.current.videoHeight;
+    }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'white';
-
+    // const fingertips = [landmarksArray[4], landmarksArray[8], landmarksArray[12], landmarksArray[16], landmarksArray[20] ];
     landmarksArray.forEach(landmarks => {
         landmarks.forEach(landmark => {
             const x = landmark.x * canvas.width;
@@ -51,8 +55,6 @@ const Model = () => {
             if (videoRef.current && videoRef.current.readyState >= 2) {
                 const detections = handLandmarker.detectForVideo(videoRef.current, performance.now());
                 setHandPresence(detections.handednesses.length > 0);
-
-                // Assuming detections.landmarks is an array of landmark objects
                 if (detections.landmarks) {
                     drawLandmarks(detections.landmarks);
                 }
@@ -90,7 +92,8 @@ const Model = () => {
         <h1>Is there a Hand? {handPresence ? "Yes" : "No"}</h1>
         <div style={{ position: "relative" }}>
             <video ref={videoRef} autoPlay playsInline ></video>
-            <canvas ref={canvasRef} style={{ backgroundColor: "black" , width:"600px", height:"480px"}}></canvas>
+            <canvas ref={canvasRef} style={{position: "absolute", top: "0", left: "0"}}></canvas>
+            
         </div>
     </>
     );
