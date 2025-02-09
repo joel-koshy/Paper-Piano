@@ -17,23 +17,25 @@ const createKeyboardNodes = (width, height) => { //
         return keyboardNodes; 
 }
 
-const blackKeys_y_offset = -30; 
+const blackKeys_y_offset = 15; 
 const blackKeys_x_offset = 20; 
 const createBlackNodes = (width, height) => {
         const keyboardNodes = []
-        const y_pos = 0.5 * height + blackKeys_y_offset;
-        const rect_width = 350; 
-        const piano_start_x = 0.3*width - blackKeys_x_offset; 
+        const y_pos = 0.875 * height + blackKeys_y_offset;
+        const rect_width = 230; 
+        const piano_start_x = 245; 
         const increment = rect_width/14; 
         for (let i = 0; i< 15; i++) {
             keyboardNodes.push({x:  piano_start_x + i*increment , y: y_pos, }); 
         }
 
-        keyboardNodes.splice(14, 1); 
+    keyboardNodes.splice(14, 1); 
+    keyboardNodes.splice(13, 1); 
         keyboardNodes.splice(10, 1); 
-        keyboardNodes.splice(7, 1); 
+        // keyboardNodes.splice(7, 1); 
+        keyboardNodes.splice(6, 1); 
         keyboardNodes.splice(3, 1); 
-        keyboardNodes.splice(0, 1); 
+        // keyboardNodes.splice(0, 1); 
         
         console.log((keyboardNodes)); 
         return keyboardNodes; 
@@ -70,13 +72,9 @@ const Model = () => {
         };
 
 
-<<<<<<< Updated upstream
-        const keyboardNodes = createKeyboardNodes(640, 480); 
-        const blackNodes = createBlackNodes(640, 480);
-=======
         const keyboardNodes = createKeyboardNodes(640, 480); // CHANGE TO MAC VIDEO DIMENSIONS
+        const blackNodes = createBlackNodes(640, 480); // CHANGE TO MAC VIDEO DIMENSIONS
 
->>>>>>> Stashed changes
 
         const detectHands = () => {
             if (videoRef.current && videoRef.current.readyState >= 2) {

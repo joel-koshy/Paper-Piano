@@ -1,10 +1,5 @@
 import detectCollision from "./collisionDetection";
-<<<<<<< Updated upstream
 const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef, blackNodes) => {
-=======
-// import drawLandmarks from "./HandLandMarker";
-const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef) => {
->>>>>>> Stashed changes
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     if (videoRef.current) {
@@ -57,22 +52,18 @@ const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef) => {
         ctx.fillStyle = 'red'; 
         ctx.fill();
     });
-<<<<<<< Updated upstream
 
     blackNodes.forEach(node => {
         const x = node.x
         const y = node.y
         ctx.beginPath();
-        ctx.arc(x, y, 5, 0, 2 * Math.PI); 
-        ctx.fillStyle = 'red'; 
+        ctx.arc(x, y, 3, 0, 2 * Math.PI); 
+        ctx.fillStyle = 'green'; 
         ctx.fill();
     });
 
 
 
-=======
-    // drawSlantedLines(ctx, canvasRef.current.width, canvasRef.current.height);
->>>>>>> Stashed changes
 };
 
 export default drawLandmarks; 
