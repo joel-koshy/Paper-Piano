@@ -2,6 +2,46 @@ import React, { useEffect, useRef, useState } from "react";
 import { FilesetResolver, HandLandmarker } from "@mediapipe/tasks-vision";
 import hand_landmarker_task from "../models/hand_landmarker.task";
 
+import drawLandmarks from "./render_landmarks";
+
+const createKeyboardNodes = (width, height) => { //
+        const keyboardNodes = []
+        const y_pos = 0.875 * height;
+        const rect_width = 230; // width of paper keyboard
+        const piano_start_x = 240; 
+        const increment = rect_width/15; 
+        for (let i = 0; i< 14; i++) {
+            keyboardNodes.push({x:  piano_start_x + i*increment , y: y_pos}); 
+        }
+        console.log((keyboardNodes)); 
+        return keyboardNodes; 
+}
+
+const blackKeys_y_offset = 15; 
+const blackKeys_x_offset = 20; 
+const createBlackNodes = (width, height) => {
+        const keyboardNodes = []
+        const y_pos = 0.875 * height + blackKeys_y_offset;
+        const rect_width = 230; 
+        const piano_start_x = 245; 
+        const increment = rect_width/14; 
+        for (let i = 0; i< 15; i++) {
+            keyboardNodes.push({x:  piano_start_x + i*increment , y: y_pos, }); 
+        }
+
+    keyboardNodes.splice(14, 1); 
+    keyboardNodes.splice(13, 1); 
+        keyboardNodes.splice(10, 1); 
+        // keyboardNodes.splice(7, 1); 
+        keyboardNodes.splice(6, 1); 
+        keyboardNodes.splice(3, 1); 
+        // keyboardNodes.splice(0, 1); 
+        
+        console.log((keyboardNodes)); 
+        return keyboardNodes; 
+
+}
+
 const Model = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -21,7 +61,7 @@ const Model = () => {
                         baseOptions: { modelAssetPath: hand_landmarker_task },
                         numHands: 2,
                         runningMode: "video", 
-                        modelComplexity: "0"    
+                        modelComplexity: "1"    
                     }
                 );
                 detectHands();
@@ -30,35 +70,21 @@ const Model = () => {
             }
         };
 
-    const drawLandmarks = (landmarksArray) => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    if (videoRef.current) {
-                canvas.width = videoRef.current.videoWidth;
-                canvas.height = videoRef.current.videoHeight;
-    }
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'white';
-    // const fingertips = [landmarksArray[4], landmarksArray[8], landmarksArray[12], landmarksArray[16], landmarksArray[20] ];
-    landmarksArray.forEach(landmarks => {
-        landmarks.forEach(landmark => {
-            const x = landmark.x * canvas.width;
-            const y = landmark.y * canvas.height;
 
-            ctx.beginPath();
-            ctx.arc(x, y, 5, 0, 2 * Math.PI); // Draw a circle for each landmark
-            ctx.fill();
-        });
-    });
-};
+        const keyboardNodes = createKeyboardNodes(640, 480); // CHANGE TO MAC VIDEO DIMENSIONS
+        const blackNodes = createBlackNodes(640, 480); // CHANGE TO MAC VIDEO DIMENSIONS
+
 
         const detectHands = () => {
             if (videoRef.current && videoRef.current.readyState >= 2) {
                 const detections = handLandmarker.detectForVideo(videoRef.current, performance.now());
                 setHandPresence(detections.handednesses.length > 0);
                 if (detections.landmarks) {
-                    drawLandmarks(detections.landmarks);
+                    drawLandmarks(detections.landmarks, keyboardNodes, canvasRef, videoRef, blackNodes);
+
                 }
+                // drawSlantedLines(canvas);
+
             }
             requestAnimationFrame(detectHands);
         };
