@@ -8,9 +8,18 @@ const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef) => {
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'white';
-    if(landmarksArray.length > 0){
-        // const fingertips = [landmarksArray[0][4], landmarksArray[0][8], landmarksArray[0][12], landmarksArray[0][16], landmarksArray[0][20] ];
-        const fingertips = [landmarksArray[0][8] ];
+
+    let fingertips = []
+    if(landmarksArray.length == 2){
+        fingertips = [landmarksArray[0][4], landmarksArray[0][8], landmarksArray[0][12], landmarksArray[0][16], landmarksArray[0][20], 
+                 landmarksArray[1][4], landmarksArray[1][8], landmarksArray[1][12], landmarksArray[1][16], landmarksArray[1][20] 
+        ];
+
+    }else if(landmarksArray.length == 1){
+        fingertips = [landmarksArray[0][4], landmarksArray[0][8], landmarksArray[0][12], landmarksArray[0][16], landmarksArray[0][20]];
+    }
+
+    if(fingertips.length > 0){
         fingertips.forEach(landmark => {
             const x = landmark.x * canvas.width;
             const y = landmark.y * canvas.height;
@@ -20,6 +29,7 @@ const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef) => {
             ctx.fill();
         });
         detectCollision(fingertips, keyboardNodes, 13, canvas.width, canvas.height); 
+ 
     }
 
     keyboardNodes.forEach(node => {
