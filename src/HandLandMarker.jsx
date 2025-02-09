@@ -4,12 +4,12 @@ import hand_landmarker_task from "../models/hand_landmarker.task";
 
 import drawLandmarks from "./render_landmarks";
 
-const createKeyboardNodes = (width, height) => {
+const createKeyboardNodes = (width, height) => { //
         const keyboardNodes = []
-        const y_pos = 0.5 * height;
-        const rect_width = 350; 
-        const piano_start_x = 0.3*width; 
-        const increment = rect_width/14; 
+        const y_pos = 0.875 * height;
+        const rect_width = 230; // width of paper keyboard
+        const piano_start_x = 240; 
+        const increment = rect_width/15; 
         for (let i = 0; i< 14; i++) {
             keyboardNodes.push({x:  piano_start_x + i*increment , y: y_pos}); 
         }
@@ -70,8 +70,13 @@ const Model = () => {
         };
 
 
+<<<<<<< Updated upstream
         const keyboardNodes = createKeyboardNodes(640, 480); 
         const blackNodes = createBlackNodes(640, 480);
+=======
+        const keyboardNodes = createKeyboardNodes(640, 480); // CHANGE TO MAC VIDEO DIMENSIONS
+
+>>>>>>> Stashed changes
 
         const detectHands = () => {
             if (videoRef.current && videoRef.current.readyState >= 2) {
@@ -81,6 +86,7 @@ const Model = () => {
                     drawLandmarks(detections.landmarks, keyboardNodes, canvasRef, videoRef, blackNodes);
 
                 }
+                // drawSlantedLines(canvas);
             }
             requestAnimationFrame(detectHands);
         };

@@ -4,7 +4,6 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Model from './HandLandMarker.jsx'
 
-
 function App() {
 
   const [cameraIsVisible, setVisibility] = useState(false)
