@@ -40,7 +40,7 @@ const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef, black
             ctx.arc(x, y, 3, 0, 2 * Math.PI); // Draw a circle for each landmark
             ctx.fill();
         });
-        detectCollision(fingertips, keyboardNodes, blackNodes, 13, canvas.width, canvas.height); 
+        detectCollision(fingertips, keyboardNodes, blackNodes, 12, canvas.width, canvas.height); 
  
     }
 

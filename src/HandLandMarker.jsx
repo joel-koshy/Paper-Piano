@@ -62,7 +62,7 @@ const Model = () => {
                         baseOptions: { modelAssetPath: hand_landmarker_task },
                         numHands: 2,
                         runningMode: "video", 
-                        modelComplexity: "0"    
+                        modelComplexity: "1"    
                     }
                 );
                 detectHands();

@@ -16,7 +16,7 @@ function App() {
       {!cameraIsVisible ? (
         // Initial hero section
         <section id="hero">
-          <h2>Welcome to Paper Piano</h2>
+          <h2>Welcome to PaperKeys</h2>
           <p>
             Experience a modern, interactive interface that brings creativity to your fingertips.
           </p>
