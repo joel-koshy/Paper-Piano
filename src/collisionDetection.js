@@ -1,3 +1,4 @@
+import {playNote, stopNote} from "./audioSelector";
 const isCollision = (landmark, node, threshold, canvasWidth, canvasHeight) => {
     const xDistance = (landmark.x*canvasWidth - node.x);
     const yDistance = (landmark.y*canvasHeight - node.y);
@@ -11,15 +12,15 @@ const detectCollision = (fingertips, keyboardNodes, blackNodes, threshold, canva
     keyboardNodes.forEach((keyboardNode, index) => {
         fingertips.forEach(fingertip => {
             if(isCollision(fingertip, keyboardNode ,threshold, canvasWidth, canvasHeight )){
-                console.log(temp_sounds[index]); 
-            }
-        });
+                playNote(index, true); 
+            } 
+       });
     });
     
     blackNodes.forEach((keyboardNode, index) => {
         fingertips.forEach(fingertip => {
             if(isCollision(fingertip, keyboardNode ,threshold, canvasWidth, canvasHeight )){
-                console.log(temp_sharps[index]); 
+                playNote(index, false); 
             }
         });
     });
