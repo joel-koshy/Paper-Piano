@@ -26,12 +26,11 @@ function App() {
         // Layout when camera is active
         <div className="main-layout">
           <div className="camera-section">
-            {/* For debugging purposes, try commenting out the Model component to see if the OSMD container works on its own */}
             <Model />
           </div>
           <div className="music-sheet">
-            <h3>Music Sheet</h3>
-            <img src={sheet_music} alt="Mary Had a Little Lamb Piano Sheet Music"/>
+            <h1>Music Sheet</h1>
+            <img class = "music-sheet-img" src={sheet_music} alt="Mary Had a Little Lamb Piano Sheet Music"/>
           </div>
         </div>
       )}
