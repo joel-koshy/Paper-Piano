@@ -3,6 +3,7 @@ import './App.css'
 import Model from './HandLandMarker.jsx'
 import sheet_music from '/sheetmusic/maryHadALittleLamb.png';
 
+
 function App() {
 
   const [cameraIsVisible, setVisibility] = useState(false)
@@ -36,6 +37,7 @@ function App() {
       )}
     </div>
   );
+
 }
 
 export default App

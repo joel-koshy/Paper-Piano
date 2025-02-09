@@ -42,7 +42,6 @@ const createBlackNodes = (width, height) => {
 
 }
 
-
 const Model = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -85,6 +84,7 @@ const Model = () => {
 
                 }
                 // drawSlantedLines(canvas);
+
             }
             requestAnimationFrame(detectHands);
         };
