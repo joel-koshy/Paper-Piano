@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FilesetResolver, HandLandmarker } from "@mediapipe/tasks-vision";
 import hand_landmarker_task from "../models/hand_landmarker.task";
+
 import drawLandmarks from "./render_landmarks";
 
 const createKeyboardNodes = (width, height) => {
@@ -17,6 +18,7 @@ const createKeyboardNodes = (width, height) => {
         return keyboardNodes; 
 
 }
+
 
 const Model = () => {
     const videoRef = useRef(null);
@@ -46,18 +48,17 @@ const Model = () => {
             }
         };
 
+
         const keyboardNodes = createKeyboardNodes(640, 480); 
+
 
         const detectHands = () => {
             if (videoRef.current && videoRef.current.readyState >= 2) {
                 const detections = handLandmarker.detectForVideo(videoRef.current, performance.now());
                 setHandPresence(detections.handednesses.length > 0);
                 if (detections.landmarks) {
-                    // ctx.beginPath();
-                    // ctx.arc(10, 10, 10, 0, 2 * Math.PI); // Draw circle for each keyboard node
-                    // ctx.fill();
                     drawLandmarks(detections.landmarks, keyboardNodes, canvasRef, videoRef);
-                    // drawKeyboard(keyboardNodes); 
+
                 }
             }
             requestAnimationFrame(detectHands);
