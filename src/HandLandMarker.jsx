@@ -1,6 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FilesetResolver, HandLandmarker } from "@mediapipe/tasks-vision";
 import hand_landmarker_task from "../models/hand_landmarker.task";
+import drawLandmarks from "./render_landmarks";
+
+const createKeyboardNodes = (width, height) => {
+        const keyboardNodes = []
+        const y_pos = 0.5 * height;
+        const rect_width = 350; 
+        const piano_start_x = 0.3*width; 
+        const increment = rect_width/14; 
+        for (let i = 0; i< 14; i++) {
+            keyboardNodes.push({x:  piano_start_x + i*increment , y: y_pos}); 
+        }
+        console.log((keyboardNodes)); 
+
+        return keyboardNodes; 
+
+}
 
 const Model = () => {
     const videoRef = useRef(null);
@@ -30,70 +46,7 @@ const Model = () => {
             }
         };
 
-        const keyboardNodes = []
-        const y_pos = 0.5 * 480;
-        const rect_width = 350; 
-        const piano_start_x = 0.3*640; 
-        const increment = rect_width/14; 
-
-        for (let i = 0; i< 14; i++) {
-            keyboardNodes.push({x:  piano_start_x + i*increment , y: y_pos}); 
-        }
-        console.log((keyboardNodes)); 
-        const rect_height = 200;
-        const canvasHeight = canvasRef.current.height; 
-    
-        const temp_sounds = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n']
-
-        const isCollision = (landmark, node, threshold) => {
-            const xDistance = (landmark.x*canvasRef.current.width - node.x);
-            const yDistance = (landmark.y*canvasRef.current.height - node.y);
-            const distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance); // Euclidean distance
-            return distance < threshold;  // Collision occurs if distance is less than threshold
-        };
-
-        const detectCollision = (fingertips, keyboardNodes, threshold) => {
-            keyboardNodes.forEach((keyboardNode, index) => {
-                fingertips.forEach(fingertip => {
-                    if(isCollision(fingertip, keyboardNode ,threshold)){
-                        console.log(temp_sounds[index]); 
-                    }
-                });
-            });
-        }
-
-        const drawLandmarks = (landmarksArray, keyboardNodes) => {
-            const canvas = canvasRef.current;
-            const ctx = canvas.getContext('2d');
-            if (videoRef.current) {
-                        canvas.width = videoRef.current.videoWidth;
-                        canvas.height = videoRef.current.videoHeight;
-            }
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'white';
-            if(landmarksArray.length > 0){
-                // const fingertips = [landmarksArray[0][4], landmarksArray[0][8], landmarksArray[0][12], landmarksArray[0][16], landmarksArray[0][20] ];
-                const fingertips = [landmarksArray[0][8] ];
-                fingertips.forEach(landmark => {
-                    const x = landmark.x * canvas.width;
-                    const y = landmark.y * canvas.height;
-                    // console.log("X: ", x, "Y: ", y ); 
-                    ctx.beginPath();
-                    ctx.arc(x, y, 5, 0, 2 * Math.PI); // Draw a circle for each landmark
-                    ctx.fill();
-                });
-                detectCollision(fingertips, keyboardNodes, 13); 
-            }
-
-            keyboardNodes.forEach(node => {
-                const x = node.x
-                const y = node.y
-                ctx.beginPath();
-                ctx.arc(x, y, 5, 0, 2 * Math.PI); // Draw circle for each keyboard node
-                ctx.fillStyle = 'red'; // You can change the color for keyboard nodes
-                ctx.fill();
-            });
-        };
+        const keyboardNodes = createKeyboardNodes(640, 480); 
 
         const detectHands = () => {
             if (videoRef.current && videoRef.current.readyState >= 2) {
@@ -103,7 +56,7 @@ const Model = () => {
                     // ctx.beginPath();
                     // ctx.arc(10, 10, 10, 0, 2 * Math.PI); // Draw circle for each keyboard node
                     // ctx.fill();
-                    drawLandmarks(detections.landmarks, keyboardNodes);
+                    drawLandmarks(detections.landmarks, keyboardNodes, canvasRef, videoRef);
                     // drawKeyboard(keyboardNodes); 
                 }
             }
