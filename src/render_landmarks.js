@@ -7,7 +7,19 @@ const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef, black
                 canvas.height = videoRef.current.videoHeight;
     }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'white';
+    ctx.beginPath();
+    ctx.moveTo(200, 480); // Start at bottom left
+    ctx.lineTo(250, 380); // End higher up
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(500, 480); // Start at bottom left
+    ctx.lineTo(425, 380); // End higher up
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 3;
+    ctx.stroke();
 
     let fingertips = []
     if(landmarksArray.length == 2){
@@ -25,7 +37,7 @@ const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef, black
             const y = landmark.y * canvas.height;
             // console.log("X: ", x, "Y: ", y ); 
             ctx.beginPath();
-            ctx.arc(x, y, 5, 0, 2 * Math.PI); // Draw a circle for each landmark
+            ctx.arc(x, y, 3, 0, 2 * Math.PI); // Draw a circle for each landmark
             ctx.fill();
         });
         detectCollision(fingertips, keyboardNodes, blackNodes, 13, canvas.width, canvas.height); 
@@ -36,7 +48,7 @@ const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef, black
         const x = node.x
         const y = node.y
         ctx.beginPath();
-        ctx.arc(x, y, 5, 0, 2 * Math.PI); 
+        ctx.arc(x, y, 3, 0, 2 * Math.PI); 
         ctx.fillStyle = 'red'; 
         ctx.fill();
     });
@@ -45,8 +57,8 @@ const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef, black
         const x = node.x
         const y = node.y
         ctx.beginPath();
-        ctx.arc(x, y, 5, 0, 2 * Math.PI); 
-        ctx.fillStyle = 'red'; 
+        ctx.arc(x, y, 3, 0, 2 * Math.PI); 
+        ctx.fillStyle = 'green'; 
         ctx.fill();
     });
 
