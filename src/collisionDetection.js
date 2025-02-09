@@ -6,11 +6,20 @@ const isCollision = (landmark, node, threshold, canvasWidth, canvasHeight) => {
 };
 
 const temp_sounds = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n']
-const detectCollision = (fingertips, keyboardNodes, threshold, canvasWidth, canvasHeight) => {
+const temp_sharps = ['a#', 'b#', 'c#', 'd#', 'e#', 'f#', 'g#', 'h#', 'i#', 'j#', 'k#', 'l#', 'm#', 'n#']
+const detectCollision = (fingertips, keyboardNodes, blackNodes, threshold, canvasWidth, canvasHeight) => {
     keyboardNodes.forEach((keyboardNode, index) => {
         fingertips.forEach(fingertip => {
             if(isCollision(fingertip, keyboardNode ,threshold, canvasWidth, canvasHeight )){
                 console.log(temp_sounds[index]); 
+            }
+        });
+    });
+    
+    blackNodes.forEach((keyboardNode, index) => {
+        fingertips.forEach(fingertip => {
+            if(isCollision(fingertip, keyboardNode ,threshold, canvasWidth, canvasHeight )){
+                console.log(temp_sharps[index]); 
             }
         });
     });

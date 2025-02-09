@@ -1,5 +1,5 @@
 import detectCollision from "./collisionDetection";
-const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef) => {
+const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef, blackNodes) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     if (videoRef.current) {
@@ -28,7 +28,7 @@ const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef) => {
             ctx.arc(x, y, 5, 0, 2 * Math.PI); // Draw a circle for each landmark
             ctx.fill();
         });
-        detectCollision(fingertips, keyboardNodes, 13, canvas.width, canvas.height); 
+        detectCollision(fingertips, keyboardNodes, blackNodes, 13, canvas.width, canvas.height); 
  
     }
 
@@ -40,6 +40,18 @@ const drawLandmarks = (landmarksArray, keyboardNodes, canvasRef, videoRef) => {
         ctx.fillStyle = 'red'; 
         ctx.fill();
     });
+
+    blackNodes.forEach(node => {
+        const x = node.x
+        const y = node.y
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, 2 * Math.PI); 
+        ctx.fillStyle = 'red'; 
+        ctx.fill();
+    });
+
+
+
 };
 
 export default drawLandmarks; 
